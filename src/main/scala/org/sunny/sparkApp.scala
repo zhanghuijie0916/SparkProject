@@ -10,12 +10,18 @@ object sparkApp{
 
     val conf = new SparkConf().setAppName("mengapp").setMaster("local[3]")
     val sc = new SparkContext(conf)
+    //read textFile
     val text = sc.textFile("hdfs://localhost:9000/huser/test/NOTICE.txt")
-    val splitText = text.flatMap(_.split(" "))
-    val filterLenText = splitText.filter(_.length<3).filter(_.length>0)
-    filterLenText.take(20).foreach(println)
+    val splitText = text.flatMap(_.split(" ")) //split
+    val filterLenText = splitText.filter(_.length<3).filter(_.length>0) //filter
+
+    filterLenText.take(20).foreach(println) //show
     println("单词长度0-3之间的个数为："+filterLenText.count)
     println("单词不重复且字符0-3之间的个数为："+filterLenText.distinct.count())
+
+    val splitRdd = filterLenText.randomSplit(Array(0.3,0.7))
+    print("将RDD随机3、7开分："+splitRdd(0).count()+"---"+splitRdd(1).count())
+
 
 
   }
