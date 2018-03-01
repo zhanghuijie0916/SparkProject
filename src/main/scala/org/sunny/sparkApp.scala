@@ -6,7 +6,7 @@ object sparkApp{
   print("hellp")
 
   def main(args: Array[String]): Unit = {
-    Logger.getLogger("org").setLevel(Level.ERROR)
+    Logger.getLogger("org.apache").setLevel(Level.ERROR)
 
     val conf = new SparkConf().setAppName("mengapp").setMaster("local[2]")
     val sc = new SparkContext(conf)
