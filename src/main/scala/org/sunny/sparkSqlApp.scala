@@ -29,7 +29,7 @@ object sparkSqlApp {
     println("年龄小于20的结果：")
     jsonDF.select($"age"<19).show  //return true or false
     println("每个人的年龄增加20的结果：")
-    jsonDF.select($"age"+20).show //每人年纪加上20岁
+    jsonDF.select($"age".cast(IntegerType)+20).show //将年龄强转成Int,并加上20岁
 
 
     /*
@@ -46,6 +46,9 @@ object sparkSqlApp {
       |             false|                          true|
       +------------------+------------------------------+
      */
+    //一下两条语句不一样
+    parquetDF("name")
+    parquetDF.select("name").show()
 
     /*
     使用反射推倒Dataset
